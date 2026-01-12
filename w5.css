@@ -1047,16 +1047,25 @@ body.theme-w5 .mobile-nav .mobile-link:hover {
 
 /* --- Radical High-End Contact Page Redesign (W5) --- */
 
-/* Force Full Screen & Center */
-.contact-page-wrapper,
-/* Hypothetical wrapper or just body/main */
+/* Force Full Screen & Center for Contact Page */
 body.theme-w5 .page-header {
     min-height: 100vh;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     justify-content: center;
     padding-top: 5rem !important;
     /* Spacing from fixed header */
+    margin-top: 0 !important;
+}
+
+body.theme-w5 main {
+    background: radial-gradient(circle at 50% 50%, #0f0c29, #020205 80%);
+}
+
+/* Hide "section-padding" spacing that might conflict */
+body.theme-w5 .section-padding {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 /* Hide standard dashboard layout on W5 to replace with centered card */
@@ -1064,7 +1073,9 @@ body.theme-w5 .contact-dashboard {
     display: flex !important;
     flex-direction: column;
     max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 2rem auto !important;
+    /* Center horizontally */
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(139, 92, 246, 0.3);

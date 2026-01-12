@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (canvas) {
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const particleCount = 25; // Much fewer particles
+            const particleCount = 100; // Increased from 25 for better visibility
             let animationId;
 
             let mouse = { x: null, y: null, radius: 150 };
