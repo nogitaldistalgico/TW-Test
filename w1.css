@@ -1,4 +1,10 @@
-/* W4: Warm & Tactile Theme (World-Class Local/Startup Feel) */
+/* W1: Warm & Tactile Theme (World-Class Local/Startup Feel) */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
     /* Colors: Warm & Vibrant */
     --bg-color: #FFFBF5;

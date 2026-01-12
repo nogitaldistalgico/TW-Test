@@ -1,4 +1,10 @@
 /* CSS Reset & Variables */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
     /* W5: Cyber/Glass High-End Theme */
     --bg-color-w5: #050511;

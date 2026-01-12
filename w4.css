@@ -1,4 +1,10 @@
-/* CSS Reset & Variables */
+/* W4: Classic / Standard */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
     /* W3: Cozy Family Business Theme */
     --bg-color: #FFF8F0;
@@ -774,5 +780,4 @@ a {
     .header-right {
         gap: 0.75rem;
     }
-}
 }
