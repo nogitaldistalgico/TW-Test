@@ -393,6 +393,11 @@ a {
         padding: 0 !important;
     }
 
+    /* Reduce parent container padding to let text expand "nach außen" */
+    .about-grid {
+        padding: 1.5rem !important;
+    }
+
     .about-stat {
         width: 100%;
         box-sizing: border-box;
