@@ -805,11 +805,17 @@ body {
         gap: 0.75rem;
     }
 
-    /* Force 1-col on mobile */
-    .bento-grid,
-    .about-grid,
-    .contact-dashboard,
+    /* Force 1-col on mobile BUT only where necessary */
+    /* Removed bento-grid and contact-dashboard force */
+
+    /* Keep width fix for Berlin Based */
     .about-stat {
         grid-template-columns: 1fr !important;
+    }
+
+    /* Reduce padding to feel less cramped */
+    .bento-card,
+    .action-card {
+        padding: 1.5rem !important;
     }
 }

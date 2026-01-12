@@ -864,5 +864,9 @@ a {
     #w2-controls button,
     #w3-controls button {
         padding: 8px;
+        color: var(--text-heading) !important;
+        background: rgba(0, 0, 0, 0.5);
+        /* Background for W3 */
+        border-radius: 50%;
     }
 }

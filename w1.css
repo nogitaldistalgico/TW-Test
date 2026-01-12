@@ -1085,8 +1085,12 @@ body {
         gap: 0.75rem;
     }
 
-    /* Force Grid Stacking on Mobile */
-    .bento-grid {
-        grid-template-columns: 1fr !important;
+    /* Reduce padding to feel less cramped */
+    .bento-card,
+    .action-card,
+    .about-text {
+        padding: 1.5rem !important;
     }
+
+    /* Removed bento-grid force so it flows naturally if possible */
 }
