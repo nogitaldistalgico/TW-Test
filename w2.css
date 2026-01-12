@@ -929,6 +929,11 @@ a {
     #w3-controls button {
         padding: 8px;
         /* Bigger touch target */
+        color: var(--text-heading) !important;
+        /* Force visibility against white */
+        background: rgba(255, 255, 255, 0.8);
+        /* Add small background to be sure */
+        border-radius: 50%;
     }
 
     /* Adjust icon size if needed */

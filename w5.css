@@ -845,6 +845,26 @@ body.hovering .cursor-outline {
     filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.5));
 }
 
+/* W5 Big Navigation Links */
+.desktop-nav .nav-link {
+    font-family: var(--font-heading-w5);
+    font-size: 1.5rem;
+    /* Bigger */
+    color: var(--accent-color-w5) !important;
+    /* Colored */
+    text-decoration: none !important;
+    /* No underline */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+.desktop-nav .nav-link:hover {
+    color: #fff !important;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+}
+
 .burger-line {
     background-color: var(--accent-color-w5);
     height: 3px;
