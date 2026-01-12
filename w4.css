@@ -202,7 +202,8 @@ a {
     min-height: 90vh;
     display: flex;
     align-items: center;
-    padding-top: var(--spacing-lg);
+    padding-top: calc(var(--spacing-lg) + 80px);
+    /* Add header height offset */
     text-align: center;
     /* Centered layout for family vibe */
     position: relative;

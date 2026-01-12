@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (canvas) {
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const particleCount = 60;
+            const particleCount = 25; // Much fewer particles
             let animationId;
 
             let mouse = { x: null, y: null, radius: 150 };
@@ -475,8 +475,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 constructor() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.vx = (Math.random() - 0.5) * 0.5; // low speed
-                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.vx = (Math.random() - 0.5) * 0.2; // Slow ambient movement
+                    this.vy = (Math.random() - 0.5) * 0.2;
                     this.size = Math.random() * 2 + 1;
                 }
                 update() {
@@ -672,4 +672,61 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // --- Mobile Controls Logic ---
+    const mobileBgToggle = document.getElementById('mobile-bg-toggle');
+    const mobileModeToggle = document.getElementById('mobile-mode-toggle');
+
+    if (mobileBgToggle) {
+        mobileBgToggle.addEventListener('click', () => {
+            // W2 Background Logic (Cycling classes)
+            // Assuming classes are w2-bg-1, w2-bg-2, w2-bg-3 (based on previous context)
+            // Or simply trigger the desktop button click if it exists!
+            const desktopBtn = document.getElementById('w2-background-toggle');
+            if (desktopBtn) desktopBtn.click();
+        });
+    }
+
+    if (mobileModeToggle) {
+        mobileModeToggle.addEventListener('click', () => {
+            // Trigger W2/W3 switch logic from desktop button
+            // This swaps between W2 (Light) and W3 (Dark)
+            const w2DarkBtn = document.getElementById('w2-dark-mode');
+            const w3LightBtn = document.getElementById('w3-light-mode');
+
+            // Check which is currently visible or active
+            if (document.body.classList.contains('theme-w2') && w2DarkBtn) {
+                w2DarkBtn.click();
+            } else if (document.body.classList.contains('theme-w3') && w3LightBtn) {
+                w3LightBtn.click();
+            }
+        });
+    }
+
+    // Ensure visibility of these buttons based on theme
+    function updateMobileControlsVisibility() {
+        const isW2 = document.body.classList.contains('theme-w2');
+        const isW3 = document.body.classList.contains('theme-w3');
+
+        if (mobileBgToggle) mobileBgToggle.style.display = isW2 ? 'block' : 'none';
+        if (mobileModeToggle) mobileModeToggle.style.display = (isW2 || isW3) ? 'block' : 'none';
+    }
+
+    // Hook into existing theme switch observers or just interval check?
+    // Better: Override/extend the designSelect change listener if possible.
+    // For now, let's run it on click of any nav link or design select
+    const designSelect = document.getElementById('design-select');
+    if (designSelect) {
+        designSelect.addEventListener('change', () => setTimeout(updateMobileControlsVisibility, 100));
+    }
+    // Also run on init
+    updateMobileControlsVisibility();
+
+    // Also hook into desktop buttons to sync state if needed
+    const desktopModeBtns = document.querySelectorAll('#w2-dark-mode, #w3-light-mode');
+    desktopModeBtns.forEach(btn => {
+        btn.addEventListener('click', () => setTimeout(updateMobileControlsVisibility, 100));
+    });
+
+}
 });
