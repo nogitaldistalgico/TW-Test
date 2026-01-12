@@ -565,3 +565,80 @@ body.hovering .cursor-outline {
 .features {
     display: none !important;
 }
+
+/* --- Mobile / Touch Device Adaptations --- */
+@media (hover: none) and (pointer: coarse) {
+
+    /* 1. Hide Custom Cursor */
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto;
+        /* Restore default cursor */
+    }
+
+    /* 2. Tilt Card "Breathing" Animation (Auto-Tilt) */
+    .tilt-card {
+        transform: rotateX(0) rotateY(0);
+        /* Reset any static transform */
+        animation: w5-breath 6s ease-in-out infinite both;
+    }
+
+    /* Stagger animations for grid items */
+    .tilt-card:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    .tilt-card:nth-child(2) {
+        animation-delay: 2s;
+    }
+
+    .tilt-card:nth-child(3) {
+        animation-delay: 4s;
+    }
+
+    /* Disable the hover glare opacity transition */
+    .tilt-card .tilt-glare {
+        opacity: 0.3 !important;
+        /* Always show faint glare */
+        mix-blend-mode: overlay;
+        /* Ensure it looks nice */
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+        animation: w5-glare-slide 6s ease-in-out infinite both;
+    }
+
+    .tilt-card:nth-child(2) .tilt-glare {
+        animation-delay: 2s;
+    }
+
+    .tilt-card:nth-child(3) .tilt-glare {
+        animation-delay: 4s;
+    }
+}
+
+@keyframes w5-breath {
+
+    0%,
+    100% {
+        transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
+    }
+
+    50% {
+        transform: perspective(1000px) rotateX(-2deg) rotateY(2deg);
+    }
+}
+
+@keyframes w5-glare-slide {
+
+    0%,
+    100% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}

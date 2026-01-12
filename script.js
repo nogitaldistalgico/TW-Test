@@ -265,8 +265,14 @@ if (heroW5 && cube) {
     // --- W5 About Effects ---
 
     // 1. 3D Tilt Cards
+    // Check if device supports hover/fine pointer
+    const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
     const cards = document.querySelectorAll('.tilt-card');
     cards.forEach(card => {
+        // Skip mouse interaction on touch devices to save performance and avoid conflicts
+        if (isTouchDevice) return;
+
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -445,6 +451,43 @@ if (heroW5 && cube) {
         });
 
         window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        // Touch Interaction
+        window.addEventListener('touchstart', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+
+                mouse.x = (touch.clientX - rect.left) * scaleX;
+                mouse.y = (touch.clientY - rect.top) * scaleY;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+
+                mouse.x = (touch.clientX - rect.left) * scaleX;
+                mouse.y = (touch.clientY - rect.top) * scaleY;
+            } else {
+                mouse.x = null;
+                mouse.y = null;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
