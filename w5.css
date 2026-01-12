@@ -809,17 +809,46 @@ body.hovering .cursor-outline {
     }
 }
 
-/* --- W5 High-End Polish --- */
+/* --- W5 High-End Polish (Redesigned Transparent Sticky) --- */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(5, 5, 17, 0.6) !important;
-    backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    pointer-events: none;
+    /* Let clicks pass through empty space */
+    padding-top: 2rem;
+}
+
+.header-inner {
+    pointer-events: none;
+}
+
+/* Make interactable elements clickable */
+.logo,
+.nav-link,
+.burger-btn,
+.burger-line,
+.header-right,
+.theme-controls,
+.design-select {
+    pointer-events: auto;
+}
+
+.logo img {
+    /* Make logo pop */
+    filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.5));
+}
+
+.burger-line {
+    background-color: var(--accent-color-w5);
+    height: 3px;
+    box-shadow: 0 0 10px var(--accent-color-w5);
 }
 
 .footer {

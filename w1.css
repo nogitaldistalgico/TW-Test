@@ -133,6 +133,10 @@ body {
     gap: 1.5rem;
     justify-content: center;
     margin-bottom: 4rem;
+    flex-wrap: wrap;
+    /* Ensure buttons wrap on small screens */
+    padding-inline: 1rem;
+    /* Prevent edge touching */
 }
 
 /* Button: Tactile Press Effect */

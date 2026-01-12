@@ -469,6 +469,19 @@ a {
     text-align: center;
 }
 
+/* Mobile Stats Fix */
+@media (max-width: 768px) {
+    .about-stat {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 2rem !important;
+    }
+
+    .stat-number {
+        font-size: 2.5rem !important;
+    }
+}
+
 .action-card:hover {
     border-color: var(--accent-color);
     transform: translateY(-5px);
@@ -837,5 +850,19 @@ a {
     .about-stat,
     .dashboard-left {
         grid-template-columns: 1fr !important;
+    }
+
+    /* Keep Controls Visible and Accessible */
+    #w2-controls,
+    #w3-controls {
+        display: flex !important;
+        position: relative;
+        z-index: 1002;
+        pointer-events: auto;
+    }
+
+    #w2-controls button,
+    #w3-controls button {
+        padding: 8px;
     }
 }

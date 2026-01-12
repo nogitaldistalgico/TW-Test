@@ -384,6 +384,19 @@ a {
     color: var(--accent-color);
 }
 
+/* Mobile Stats Fix */
+@media (max-width: 768px) {
+    .about-stat {
+        width: 100%;
+        box-sizing: border-box;
+        grid-template-columns: 1fr !important;
+    }
+
+    .stat-number {
+        font-size: 2.5rem !important;
+    }
+}
+
 /* Contact Dashboard Layout */
 .contact-dashboard {
     display: grid;
