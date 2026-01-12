@@ -482,8 +482,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.size = Math.random() * 2 + 1;
                 }
                 update() {
+                    // Mouse Attraction
+                    if (mouse.x != null) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const forceDirectionX = dx / distance;
+                        const forceDirectionY = dy / distance;
+                        const maxDistance = 300;
+                        const force = (maxDistance - distance) / maxDistance;
+
+                        if (distance < maxDistance) {
+                            const directionX = forceDirectionX * force * 0.6; // Attraction strength
+                            const directionY = forceDirectionY * force * 0.6;
+                            this.vx += directionX;
+                            this.vy += directionY;
+                        }
+                    }
+
                     this.x += this.vx;
                     this.y += this.vy;
+
+                    // Friction to stop infinite acceleration
+                    this.vx *= 0.95;
+                    this.vy *= 0.95;
+
+                    // Keep minimum movement
+                    if (Math.abs(this.vx) < 0.1) this.vx = (Math.random() - 0.5) * 0.2;
+                    if (Math.abs(this.vy) < 0.1) this.vy = (Math.random() - 0.5) * 0.2;
 
                     // Bounce
                     if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
@@ -576,17 +602,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         const distance = Math.sqrt(dx * dx + dy * dy);
 
                         if (distance < 300) {
-                            // Smoothly interpolate touch intensity
-                            if (isTouching) {
+                            // Smoothly interpolate touch/mouse intensity
+                            // If touching OR mouse is active (mouse.x is not null)
+                            const isInteractionActive = isTouching || (mouse.x != null && !isTouching);
+
+                            if (isInteractionActive) {
                                 touchIntensity += 0.05;
                                 if (touchIntensity > 1) touchIntensity = 1;
                             } else {
                                 touchIntensity -= 0.02; // Fade out slower
                                 if (touchIntensity < 0) {
                                     touchIntensity = 0;
-                                    // Only reset position once fully faded to avoid jumps
-                                    // But keeping position allows re-fading at same spot if touched quickly
-                                    // For now, we just stop drawing.
                                 }
                             }
 
