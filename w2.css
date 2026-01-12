@@ -212,15 +212,30 @@ a {
     right: 0;
     width: 60%;
     height: 100%;
-    background-image: url('hero-w1.png');
+    background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&q=80');
     background-size: cover;
-    background-position: center left;
+    background-position: center;
     z-index: -1;
 
     /* Fade from transparent (left) to visible (right) */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 100%);
-    opacity: 0.9;
+    /* Reduced opacity for white overlay effect implicitly handled by image brightness or we add a gradient overlay separately */
+    /* Since this pseudo-element IS the image, 'opacity' controls the image itself. 
+       But the user wants the IMAGE to be MORE visible, creating a 'less transparent' look relative to the white background?
+       Actually w2 has a background-color. 
+       Let's look at how the other bg classes do it: they use a linear-gradient ON TOP of the url.
+       The default here uses just 'opacity: 0.9' on the image itself? 
+       Wait, line 215 was just the image.
+       Let's verify line 223 `opacity: 0.9`. 
+       If I lower opacity, it becomes MORE transparent (fainter).
+       The user said "weniger toleranz" (less transparency/translucency) -> "bild schon noch halbwegs erkennt" (recognize the image).
+       So I should INCREASE opacity if it's the image opacity.
+       BUT, for the toggle classes (lines 718+), they use a white gradient overlay.
+       The default one uses `opacity: 0.9` on the element.
+       Let's set opacity to 1.0 for the default image, or maybe remove the opacity property if it's fading into white bg.
+    */
+    opacity: 1.0;
 }
 
 .hero-subtitle {
@@ -716,31 +731,32 @@ a {
 
 /* Hero Background Toggles */
 .hero.hero-bg-art {
-    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&q=80');
+    /* Correctly swapped: This is now the OLD default image */
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-w1.png');
     background-size: cover;
     background-position: center;
 }
 
 .hero.hero-bg-photo {
-    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
     background-size: cover;
     background-position: center;
 }
 
 .hero.hero-bg-cafe {
-    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('hero-bg-cafe.png');
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-bg-cafe.png');
     background-size: cover;
     background-position: center;
 }
 
 .hero.hero-bg-craft {
-    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('hero-bg-craft.png');
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-bg-craft.png');
     background-size: cover;
     background-position: center;
 }
 
 .hero.hero-bg-salon {
-    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('hero-bg-salon.png');
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-bg-salon.png');
     background-size: cover;
     background-position: center;
 }
