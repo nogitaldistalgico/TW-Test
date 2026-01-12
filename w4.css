@@ -791,3 +791,69 @@ h1 {
 .features-w5 {
     display: none !important;
 }
+
+/* --- Mobile / Touch Device Adaptations (W4) --- */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Strong Tactile Feedback for Buttons & Links */
+    .btn:active,
+    .nav-link.cta-button:active,
+    .action-card:active {
+        transform: scale(0.96) translateY(2px) !important;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+        /* Flatten shadow */
+        transition: all 0.1s;
+    }
+
+    /* "Breathing" Cards - High End Feel */
+    /* Instead of static, they gently float and rotate slightly */
+    .bento-card {
+        animation: w4-breathe 8s ease-in-out infinite both;
+        transform-origin: center center;
+    }
+
+    .bento-card:nth-child(odd) {
+        animation-delay: 0s;
+    }
+
+    .bento-card:nth-child(even) {
+        animation-delay: 4s;
+    }
+
+    /* Make sure Stickers animate nicely (they already have animation, but let's ensure z-index) */
+    .hero-sticker {
+        z-index: 5;
+    }
+
+    /* Enhance the Highlight Underline for Mobile */
+    .highlight-w4 {
+        animation: w4-pulse-highlight 3s ease-in-out infinite;
+    }
+}
+
+@keyframes w4-breathe {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        border-color: transparent;
+    }
+
+    50% {
+        transform: translateY(-5px) rotate(0.5deg) scale(1.01);
+        border-color: rgba(255, 118, 117, 0.3);
+        /* Subtle Salmon tint */
+    }
+}
+
+@keyframes w4-pulse-highlight {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}

@@ -600,3 +600,38 @@ a {
 .features-w5 {
     display: none !important;
 }
+
+/* --- Mobile / Touch Device Adaptations (W3) --- */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Tactile Button Feedback */
+    .btn:active,
+    .cta-button:active {
+        transform: scale(0.96) translateY(2px);
+    }
+
+    /* Auto-Float for Cards to feel "alive" without hover */
+    .bento-card {
+        animation: w3-float 6s ease-in-out infinite both;
+    }
+
+    .bento-card:nth-child(odd) {
+        animation-delay: 0s;
+    }
+
+    .bento-card:nth-child(even) {
+        animation-delay: 3s;
+    }
+}
+
+@keyframes w3-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}

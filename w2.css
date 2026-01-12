@@ -236,6 +236,10 @@ a {
     color: white;
 }
 
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
 .btn-secondary {
     background: transparent;
     border: 1px solid var(--border-color);
@@ -245,6 +249,11 @@ a {
 .btn-secondary:hover {
     border-color: var(--accent-color);
     background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-secondary:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* ... previous code ... */
@@ -661,13 +670,18 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
 /* W5 Hero - Hidden in W2 */
 .hero-w5 {
     display: none;
 }
 
 /* Hide W5 About */
-.about-w5 { display: none; }
+.about-w5 {
+    display: none;
+}
 
 /* Hide W5 Features */
-.features-w5 { display: none; }
+.features-w5 {
+    display: none;
+}
