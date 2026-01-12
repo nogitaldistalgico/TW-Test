@@ -587,11 +587,14 @@ body {
 }
 
 /* Animations */
+/* Animations using IntersectionObserver */
 .reveal,
-.reveal-text {
+.reveal-text,
+.revealable-delay-1,
+.revealable-delay-2 {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .visible {
