@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt — TW</title>
+    <meta name="description" content="Kontaktieren Sie TW für Ihr nächstes Web-Projekt. Modernes Design aus Berlin.">
+    <link rel="stylesheet" href="w1.css" id="theme-stylesheet">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>TW</text></svg>">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="TW" height="40" style="vertical-align: middle;" onerror="this.outerHTML='TW'">
+            </a>
+            <nav class="nav">
+                <a href="index.html#features" class="nav-link">Leistungen</a>
+                <a href="index.html#about" class="nav-link">Über Mich</a>
+                <a href="contact.html" class="nav-link cta-button">Kontakt</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header section-padding">
+            <div class="container">
+                <div class="contact-hero reveal-text">
+                    <span class="eyebrow">Kontakt</span>
+                    <h1>Lassen Sie uns<br>starten.</h1>
+                    <p class="hero-subtitle">Haben Sie eine Frage oder ein Projekt im Kopf? Ich freue mich darauf, von
+                        Ihnen zu hören.</p>
+                </div>
+
+                <div class="contact-dashboard reveal">
+                    <!-- Left Column: Action Cards -->
+                    <div class="dashboard-left">
+                        <a href="mailto:info@TW.de" class="action-card card-email">
+                            <div class="action-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                </svg>
+                            </div>
+                            <div class="action-text">
+                                <span class="action-label">E-Mail</span>
+                                <span class="action-value">info@TW.de</span>
+                            </div>
+                        </a>
+
+                        <a href="https://instagram.com/TW" target="_blank" rel="noopener noreferrer"
+                            class="action-card card-social">
+                            <div class="action-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </div>
+                            <div class="action-text">
+                                <span class="action-label">Instagram</span>
+                                <span class="action-value">@TW</span>
+                            </div>
+                        </a>
+
+                        <div class="action-card card-visit">
+                            <div class="action-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="action-text">
+                                <span class="action-label">Büro</span>
+                                <span class="action-value">Peterstraße 1, Berlin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Map -->
+                    <div class="dashboard-right">
+                        <div class="map-container">
+                            <div id="map-placeholder" class="map-placeholder">
+                                <div class="map-overlay-content">
+                                    <div class="map-icon-large">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76">
+                                            </polygon>
+                                        </svg>
+                                    </div>
+                                    <h3>Karte aktivieren</h3>
+                                    <p>Erst nach Klick werden Daten an Google Maps gesendet.</p>
+                                    <button id="load-map-btn" class="btn btn-primary">Karte laden</button>
+                                </div>
+                            </div>
+                            <div id="map-target" class="map-target"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <span class="copyright">© 2024 TW. Alle Rechte vorbehalten.</span>
+                    <div class="design-switcher-wrapper">
+                        <select id="design-select" class="design-select" aria-label="Design wählen">
+                            <option value="w1.css">Design W1 (Light Heritage)</option>
+                            <option value="w2.css">Design W2 (Dark Forest)</option>
+                            <option value="w3.css">Design W3 (Minimalist)</option>
+                            <option value="w4.css">Design W4 (Brutalist)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="footer-icons">
+                    <a href="mailto:info@TW.de" class="social-icon" aria-label="E-Mail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/TW" target="_blank" rel="noopener noreferrer" class="social-icon"
+                        aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <nav class="footer-nav">
+                    <a href="impressum.html">Impressum</a>
+                    <a href="datenschutz.html">Datenschutz</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
