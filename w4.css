@@ -587,19 +587,30 @@ body {
 }
 
 /* Animations */
-/* Animations using IntersectionObserver */
+/* Animations using IntersectionObserver - Mobile Only */
 .reveal,
 .reveal-text,
 .revealable-delay-1,
 .revealable-delay-2 {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: none;
 }
 
-.visible {
-    opacity: 1;
-    transform: translateY(0);
+@media (max-width: 768px) {
+
+    .reveal,
+    .reveal-text,
+    .revealable-delay-1,
+    .revealable-delay-2 {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Switcher / Components */

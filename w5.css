@@ -1170,12 +1170,23 @@ body.theme-w5 .contact-hero .hero-subtitle {
 }
 
 /* Fix container relative positioning so particles stay bounded if needed, 
-   OR fixed full screen if we want them everywhere. 
+/* Fix container relative positioning so particles stay bounded if needed,
+   OR fixed full screen if we want them everywhere.
    Currently they are absolute. */
-body.theme-w5 {
-    background: radial-gradient(circle at 50% 50%, #0f0c29, #020205 80%);
+background: radial-gradient(circle at 50% 50%, #0f0c29, #020205 80%);
+}
 
-    /* Animations using IntersectionObserver */
+/* Animations using IntersectionObserver - Mobile Only */
+.reveal,
+.reveal-text,
+.revealable-delay-1,
+.revealable-delay-2 {
+    opacity: 1;
+    transform: none;
+}
+
+@media (max-width: 768px) {
+
     .reveal,
     .reveal-text,
     .revealable-delay-1,
@@ -1198,3 +1209,5 @@ body.theme-w5 {
     .revealable-delay-2 {
         transition-delay: 0.2s;
     }
+}
+}
