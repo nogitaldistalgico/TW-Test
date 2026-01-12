@@ -86,8 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (w2Controls) w2Controls.style.display = (theme === 'w2.css') ? 'flex' : 'none';
             if (w3Controls) w3Controls.style.display = (theme === 'w3.css') ? 'flex' : 'none';
 
-            // W2 Background Logic: Reset or restore?
-            // For now, keep it simple.
+            // Update Body Class for CSS Specificity (e.g. theme-w5)
+            document.body.classList.remove('theme-w1', 'theme-w2', 'theme-w3', 'theme-w4', 'theme-w5');
+            const themeName = theme.replace('.css', '');
+            document.body.classList.add('theme-' + themeName);
         };
 
         // Initial update
