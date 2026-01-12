@@ -1044,3 +1044,121 @@ body.theme-w5 .mobile-nav .mobile-link:hover {
     box-shadow: 0 0 30px var(--accent-color-w5);
     background: #7c3aed !important;
 }
+
+/* --- Radical High-End Contact Page Redesign (W5) --- */
+
+/* Force Full Screen & Center */
+.contact-page-wrapper,
+/* Hypothetical wrapper or just body/main */
+body.theme-w5 .page-header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5rem !important;
+    /* Spacing from fixed header */
+}
+
+/* Hide standard dashboard layout on W5 to replace with centered card */
+body.theme-w5 .contact-dashboard {
+    display: flex !important;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(139, 92, 246, 0.05);
+}
+
+body.theme-w5 .dashboard-left {
+    display: flex;
+    /* Keep flex */
+    flex-direction: row;
+    /* Horizontal cards */
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+body.theme-w5 .action-card {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+
+body.theme-w5 .action-text {
+    margin-top: 1rem;
+}
+
+/* Contact Form Overrides */
+body.theme-w5 .contact-form-card {
+    padding: 0;
+    border: none;
+}
+
+body.theme-w5 .form-group {
+    margin-bottom: 1.5rem;
+}
+
+body.theme-w5 .form-control {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(139, 92, 246, 0.2) !important;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+body.theme-w5 .form-control:focus {
+    transform: scale(1.02);
+    border-color: var(--accent-color-w5) !important;
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.25);
+}
+
+body.theme-w5 .btn-primary {
+    width: 100%;
+    padding: 1.25rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    background: linear-gradient(90deg, #7c3aed, #4f46e5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.theme-w5 .btn-primary:hover {
+    letter-spacing: 0.3em;
+    box-shadow: 0 0 40px rgba(124, 58, 237, 0.6);
+}
+
+/* Text Polish */
+body.theme-w5 .contact-hero h1 {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+}
+
+body.theme-w5 .contact-hero .hero-subtitle {
+    font-family: var(--font-body-w5);
+    color: var(--text-main-w5);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+}
+
+/* PARTICLE FIX: Ensure canvas is visible on desktop */
+#w5-particles {
+    display: block !important;
+    z-index: 0 !important;
+    /* Behind content */
+    pointer-events: none !important;
+    /* Let clicks pass */
+}
+
+/* Fix container relative positioning so particles stay bounded if needed, 
+   OR fixed full screen if we want them everywhere. 
+   Currently they are absolute. */
+body.theme-w5 {
+    background: radial-gradient(circle at 50% 50%, #0f0c29, #020205 80%);
+}
