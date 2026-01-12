@@ -799,10 +799,23 @@ body.hovering .cursor-outline {
     .header-right {
         gap: 0.75rem;
     }
+
+    /* Force 1-col on mobile */
+    .bento-grid,
+    .about-grid,
+    .contact-dashboard,
+    .about-stat {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 /* --- W5 High-End Polish --- */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     background: rgba(5, 5, 17, 0.6) !important;
     backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -813,9 +826,37 @@ body.hovering .cursor-outline {
     background: #020205 !important;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     color: var(--text-main-w5);
+    position: relative;
+    z-index: 10;
 }
 
 .footer h3,
 .footer h4 {
     color: #fff;
+}
+
+/* Ensure Particles are behind content but visible */
+#w5-particles {
+    position: absolute;
+    /* or fixed if it should stay with scroll? usually absolute in hero */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Low z-index */
+    pointer-events: auto;
+    /* Essential for mouse interaction */
+}
+
+/* Fix Hero Content Z-Index to be above particles */
+.hero-w5-inner {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+    /* Let clicks pass through if needed, but usually we want text selection. */
+}
+
+.hero-w5-inner * {
+    pointer-events: auto;
 }

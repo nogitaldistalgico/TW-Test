@@ -915,6 +915,44 @@ body {
     color: #333;
 }
 
+/* --- W1 Header: Floating Pill Design --- */
+.header {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1000px;
+    background: rgba(255, 255, 255, 0.9) !important;
+    /* Ensure override */
+    backdrop-filter: blur(12px);
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.header.scrolled {
+    top: 10px;
+    padding: 0.4rem 1.2rem;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.logo img {
+    height: 36px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+.nav-link {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-size: 0.95rem;
+}
+
 /* --- Mobile Menu & Header Refactor --- */
 .header-inner {
     display: flex;
@@ -1041,5 +1079,10 @@ body {
 
     .header-right {
         gap: 0.75rem;
+    }
+
+    /* Force Grid Stacking on Mobile */
+    .bento-grid {
+        grid-template-columns: 1fr !important;
     }
 }
