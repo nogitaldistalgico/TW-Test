@@ -1169,11 +1169,9 @@ body.theme-w5 .contact-hero .hero-subtitle {
     /* Let clicks pass */
 }
 
-/* Fix container relative positioning so particles stay bounded if needed, 
-/* Fix container relative positioning so particles stay bounded if needed,
-   OR fixed full screen if we want them everywhere.
-   Currently they are absolute. */
-background: radial-gradient(circle at 50% 50%, #0f0c29, #020205 80%);
+/* Fix container relative positioning so particles stay bounded if needed. */
+body.theme-w5 {
+    background: radial-gradient(circle at 50% 50%, #0f0c29, #020205 80%);
 }
 
 /* Animations using IntersectionObserver - Mobile Only */

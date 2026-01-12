@@ -454,7 +454,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let mouse = { x: null, y: null, radius: 150 };
             let isTouching = false;
-            let touchIntensity = 0; // 0.0 to 1.0
+            let touchIntensity = 0;
+            let isMouse = false; // Track if the last input was a mouse // 0.0 to 1.0
 
             function resizeCanvas() {
                 // Set internal resolution to match display size (CSS pixels)
@@ -530,6 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Mouse Interaction
             window.addEventListener('mousemove', (e) => {
+                isMouse = true; // Confirmed mouse usage
                 const rect = canvas.getBoundingClientRect();
                 if (e.clientX >= rect.left && e.clientX <= rect.right &&
                     e.clientY >= rect.top && e.clientY <= rect.bottom) {
@@ -550,6 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Touch Interaction
             // Touch Events with Smooth Fade
             window.addEventListener('touchstart', (e) => {
+                isMouse = false; // Confirmed touch usage
                 const rect = canvas.getBoundingClientRect();
                 const touch = e.touches[0];
                 if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
@@ -603,8 +606,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (distance < 300) {
                             // Smoothly interpolate touch/mouse intensity
-                            // If touching OR mouse is active (mouse.x is not null)
-                            const isInteractionActive = isTouching || (mouse.x != null && !isTouching);
+                            // If touching OR (mouse is active (mouse.x is not null) AND it's actually a mouse)
+                            const isInteractionActive = isTouching || (mouse.x != null && !isTouching && isMouse);
 
                             if (isInteractionActive) {
                                 touchIntensity += 0.05;
