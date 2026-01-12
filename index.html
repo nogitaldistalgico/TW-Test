@@ -19,14 +19,18 @@
             <a href="index.html" class="logo">
                 <img src="logo.png" alt="TW" height="40" style="vertical-align: middle;" onerror="this.outerHTML='TW'">
             </a>
-            <nav class="nav">
-                <a href="#features" class="nav-link">Leistungen</a>
-                <a href="#about" class="nav-link">Über Mich</a>
-                <a href="contact.html" class="nav-link cta-button">Kontakt</a>
 
+            <div class="header-right">
+                <!-- Desktop Nav -->
+                <nav class="nav desktop-nav">
+                    <a href="#features" class="nav-link">Leistungen</a>
+                    <a href="#about" class="nav-link">Über Mich</a>
+                </nav>
+
+                <!-- Controls -->
                 <!-- W2 Controls: Background & Dark Mode -->
                 <div id="w2-controls" class="theme-controls"
-                    style="display: none; align-items: center; gap: 0.5rem; margin-left: 1rem;">
+                    style="display: none; align-items: center; gap: 0.5rem; margin-right: 0.5rem;">
                     <button id="w2-bg-toggle" class="nav-link icon-btn" aria-label="Hintergrund ändern"
                         title="Hintergrund wechseln" style="background:none; border:none; cursor:pointer;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -47,7 +51,7 @@
 
                 <!-- W3 Controls: Light Mode -->
                 <div id="w3-controls" class="theme-controls"
-                    style="display: none; align-items: center; margin-left: 1rem;">
+                    style="display: none; align-items: center; margin-right: 0.5rem;">
                     <button id="w3-light-mode" class="nav-link icon-btn" aria-label="Light Mode"
                         title="Zu Light Mode (W2)" style="background:none; border:none; cursor:pointer;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -64,7 +68,25 @@
                         </svg>
                     </button>
                 </div>
-            </nav>
+
+                <a href="contact.html" class="nav-link cta-button mobile-visible">Kontakt</a>
+
+                <button class="burger-btn" aria-label="Menü öffnen">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu-overlay">
+            <div class="mobile-menu-content">
+                <nav class="mobile-nav">
+                    <a href="index.html" class="mobile-link">Home</a>
+                    <a href="#features" class="mobile-link">Leistungen</a>
+                    <a href="#about" class="mobile-link">Über Mich</a>
+                    <a href="contact.html" class="mobile-link">Kontakt</a>
+                </nav>
+            </div>
         </div>
     </header>
 

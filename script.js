@@ -630,4 +630,46 @@ if (heroW5 && cube) {
         animateParticles();
     }
 
+    // --- Mobile Menu Logic ---
+    const burgerBtns = document.querySelectorAll('.burger-btn');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    if (burgerBtns.length > 0 && mobileMenuOverlay) {
+        burgerBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent immediate close
+                const isActive = mobileMenuOverlay.classList.contains('active');
+
+                if (isActive) {
+                    mobileMenuOverlay.classList.remove('active');
+                    btn.classList.remove('active');
+                    document.body.style.overflow = '';
+                } else {
+                    mobileMenuOverlay.classList.add('active');
+                    btn.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuOverlay.classList.remove('active');
+                burgerBtns.forEach(btn => btn.classList.remove('active'));
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close when clicking outside (optional, but good for overlays)
+        mobileMenuOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileMenuOverlay) {
+                mobileMenuOverlay.classList.remove('active');
+                burgerBtns.forEach(btn => btn.classList.remove('active'));
+                document.body.style.overflow = '';
+            }
+        });
+    }
 }
+});

@@ -18,11 +18,32 @@
             <a href="index.html" class="logo">
                 <img src="logo.png" alt="TW" height="40" style="vertical-align: middle;" onerror="this.outerHTML='TW'">
             </a>
-            <nav class="nav">
-                <a href="index.html#features" class="nav-link">Leistungen</a>
-                <a href="index.html#about" class="nav-link">Über Mich</a>
-                <a href="contact.html" class="nav-link cta-button">Kontakt</a>
-            </nav>
+
+            <div class="header-right">
+                <!-- Desktop Nav -->
+                <nav class="nav desktop-nav">
+                    <a href="index.html#features" class="nav-link">Leistungen</a>
+                    <a href="index.html#about" class="nav-link">Über Mich</a>
+                </nav>
+
+                <a href="contact.html" class="nav-link cta-button mobile-visible">Kontakt</a>
+
+                <button class="burger-btn" aria-label="Menü öffnen">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu-overlay">
+            <div class="mobile-menu-content">
+                <nav class="mobile-nav">
+                    <a href="index.html" class="mobile-link">Home</a>
+                    <a href="index.html#features" class="mobile-link">Leistungen</a>
+                    <a href="index.html#about" class="mobile-link">Über Mich</a>
+                    <a href="contact.html" class="mobile-link">Kontakt</a>
+                </nav>
+            </div>
         </div>
     </header>
 
