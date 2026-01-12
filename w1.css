@@ -70,6 +70,14 @@ body {
     width: 100%;
 }
 
+/* Utilities */
+.container {
+    width: 90%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding-inline: 1.5rem;
+}
+
 /* --- HERO W1: IMMERSIVE STICKER LAYOUT (Modern Friendly) --- */
 .hero-w1 {
     display: flex;

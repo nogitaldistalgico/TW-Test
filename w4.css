@@ -129,6 +129,7 @@ a {
     width: 90%;
     max-width: var(--container-width);
     margin: 0 auto;
+    padding-inline: 1.5rem;
 }
 
 .section-padding {

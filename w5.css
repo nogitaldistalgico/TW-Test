@@ -28,6 +28,14 @@ body {
     /* Custom Cursor */
 }
 
+/* Utilities */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: 1.5rem;
+}
+
 /* Typography Overrides */
 h1,
 h2,
