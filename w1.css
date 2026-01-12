@@ -980,6 +980,12 @@ body {
     gap: 1.5rem;
 }
 
+/* W1 Contact Button White Text */
+.header .cta-button,
+.header a[href="contact.html"] {
+    color: #fff !important;
+}
+
 /* Burger Button */
 .burger-btn {
     display: none;
