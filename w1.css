@@ -927,15 +927,18 @@ body {
     transform: translateX(-50%);
     width: 90%;
     max-width: 1000px;
-    background: rgba(255, 255, 255, 0.9) !important;
-    /* Ensure override */
+    background: rgba(255, 248, 240, 0.95) !important;
+    /* Warm warm off-white */
+    color: var(--text-heading) !important;
+    /* Earthy Brown */
     backdrop-filter: blur(12px);
     border-radius: 50px;
     padding: 0.5rem 1.5rem;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 10px 25px -5px rgba(120, 53, 15, 0.08), 0 8px 10px -6px rgba(120, 53, 15, 0.02);
+    /* Warm shadow */
     z-index: 1000;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .header.scrolled {
@@ -955,6 +958,7 @@ body {
     font-weight: 600;
     letter-spacing: -0.01em;
     font-size: 0.95rem;
+    color: var(--text-heading) !important;
 }
 
 /* --- Mobile Menu & Header Refactor --- */
