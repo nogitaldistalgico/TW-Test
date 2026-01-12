@@ -450,6 +450,10 @@ if (heroW5 && cube) {
         const particleCount = 60;
         let animationId;
 
+        let mouse = { x: null, y: null, radius: 150 };
+        let isTouching = false;
+        let touchIntensity = 0; // 0.0 to 1.0
+
         function resizeCanvas() {
             // Set internal resolution to match display size (CSS pixels)
             const rect = canvas.getBoundingClientRect();
@@ -497,7 +501,6 @@ if (heroW5 && cube) {
         }
 
         // Mouse Interaction
-        let mouse = { x: null, y: null };
         window.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
             if (e.clientX >= rect.left && e.clientX <= rect.right &&
@@ -517,6 +520,7 @@ if (heroW5 && cube) {
         window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
 
         // Touch Interaction
+        // Touch Events with Smooth Fade
         window.addEventListener('touchstart', (e) => {
             const rect = canvas.getBoundingClientRect();
             const touch = e.touches[0];
@@ -528,6 +532,7 @@ if (heroW5 && cube) {
 
                 mouse.x = (touch.clientX - rect.left) * scaleX;
                 mouse.y = (touch.clientY - rect.top) * scaleY;
+                isTouching = true;
             }
         }, { passive: true });
 
@@ -542,15 +547,16 @@ if (heroW5 && cube) {
 
                 mouse.x = (touch.clientX - rect.left) * scaleX;
                 mouse.y = (touch.clientY - rect.top) * scaleY;
+                isTouching = true;
             } else {
-                mouse.x = null;
-                mouse.y = null;
+                // Don't clear immediately, let loop handle fade out
+                isTouching = false;
             }
         }, { passive: true });
 
         window.addEventListener('touchend', () => {
-            mouse.x = null;
-            mouse.y = null;
+            // Don't clear immediately, let loop handle fade out
+            isTouching = false;
         });
 
         function animateParticles() {
@@ -561,19 +567,36 @@ if (heroW5 && cube) {
                 p.update();
                 p.draw();
 
-                // Connect to mouse
+                // Connect to mouse (with smooth fade on touch)
                 if (mouse.x != null) {
                     const dx = p.x - mouse.x;
                     const dy = p.y - mouse.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 300) { // Increased connection distance
-                        ctx.strokeStyle = `rgba(139, 92, 246, ${1 - distance / 300})`;
-                        ctx.lineWidth = 2; // Stronger lines
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.stroke();
+                    if (distance < 300) {
+                        // Smoothly interpolate touch intensity
+                        if (isTouching) {
+                            touchIntensity += 0.05;
+                            if (touchIntensity > 1) touchIntensity = 1;
+                        } else {
+                            touchIntensity -= 0.02; // Fade out slower
+                            if (touchIntensity < 0) {
+                                touchIntensity = 0;
+                                // Only reset position once fully faded to avoid jumps
+                                // But keeping position allows re-fading at same spot if touched quickly
+                                // For now, we just stop drawing.
+                            }
+                        }
+
+                        if (touchIntensity > 0) {
+                            const opacity = (1 - distance / 300) * touchIntensity;
+                            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+                            ctx.lineWidth = 2 * touchIntensity;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
 
                         // Push slightly away from mouse
                         if (distance < 150) {
