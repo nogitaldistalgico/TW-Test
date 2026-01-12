@@ -224,451 +224,452 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
+    // --- W2 Scroll Animation Logic ---
 
-// --- W5 High-End Logic ---
-const heroW5 = document.querySelector('.hero-w5');
-const cube = document.getElementById('w5-cube');
-const cursorDot = document.querySelector('[data-cursor-dot]');
-const cursorOutline = document.querySelector('[data-cursor-outline]');
+    // --- W5 High-End Logic ---
+    const heroW5 = document.querySelector('.hero-w5');
+    const cube = document.getElementById('w5-cube');
+    const cursorDot = document.querySelector('[data-cursor-dot]');
+    const cursorOutline = document.querySelector('[data-cursor-outline]');
 
-// Only run if W5 hero exists (it always exists in HTML but might be hidden)
-// We check visibility/display to save performance
-if (heroW5 && cube) {
+    // Only run if W5 hero exists (it always exists in HTML but might be hidden)
+    // We check visibility/display to save performance
+    if (heroW5 && cube) {
 
-    // Custom Cursor Logic
-    window.addEventListener('mousemove', function (e) {
-        // Only active if W5 is the current design (simple check: is heroW5 visible?)
-        // Note: getComputedStyle is expensive in loop, maybe check once on scroll/resize or global state
-        // For now, let's just update positions always, but toggle visibility via CSS.
+        // Custom Cursor Logic
+        window.addEventListener('mousemove', function (e) {
+            // Only active if W5 is the current design (simple check: is heroW5 visible?)
+            // Note: getComputedStyle is expensive in loop, maybe check once on scroll/resize or global state
+            // For now, let's just update positions always, but toggle visibility via CSS.
 
-        const posX = e.clientX;
-        const posY = e.clientY;
+            const posX = e.clientX;
+            const posY = e.clientY;
 
-        // Dot follows immediately
-        if (cursorDot) {
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-        }
-
-        // Outline follows with delay
-        if (cursorOutline) {
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        }
-    });
-
-    // Add hover effect for links/buttons
-    document.querySelectorAll('a, button, .bento-card').forEach(el => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-        el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-    });
-
-    // 3D Scroll Logic for W5
-    window.addEventListener('scroll', () => {
-        // Only if w5 is visible
-        if (getComputedStyle(heroW5).display === 'none') return;
-
-        const scrollY = window.scrollY;
-        const maxScroll = window.innerHeight * 1.5; // Rotate fully over 1.5 viewport heights
-
-        // Rotation calculations
-        // Rotate X and Y based on scroll
-        const rotationX = (scrollY / maxScroll) * 360;
-        const rotationY = (scrollY / maxScroll) * 360;
-
-        // Also move it slightly parallax
-        const translateY = scrollY * 0.5;
-
-        // Apply transform
-        // maintain initial center position using translateZ if needed or just rotate
-        // The cube css has initial transforms on faces, parent has transform-style: preserve-3d
-        // We rotate the PARENT container #w5-cube
-
-        cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
-
-        // Fade out if scrolling past the hero section
-        // Hero height is approx 200vh now (per css update).
-        // Let's fade out as we exit the hero.
-        const heroRect = heroW5.getBoundingClientRect();
-        // heroRect.bottom goes from 2*viewport (start) to 0 (end)
-        if (heroRect.bottom < window.innerHeight) {
-            const fadeOutProgress = 1 - (heroRect.bottom / window.innerHeight);
-            // 0 -> 1 as we leave
-            // Opacity: 1 -> 0
-
-            // Ideally we target the container .w5-3d-scene
-            const scene = document.querySelector('.w5-3d-scene');
-            if (scene) {
-                scene.style.opacity = Math.max(0, 1 - fadeOutProgress * 2); // fade fast
+            // Dot follows immediately
+            if (cursorDot) {
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
             }
-        } else {
-            const scene = document.querySelector('.w5-3d-scene');
-            if (scene) scene.style.opacity = '1';
-        }
-    });
 
-    // Mouse Move Parallax on Cube (when not scrolling) for extra "High End" feel
-    window.addEventListener('mousemove', (e) => {
-        if (getComputedStyle(heroW5).display === 'none') return;
-
-        const x = (window.innerWidth / 2 - e.clientX) / 50;
-        const y = (window.innerHeight / 2 - e.clientY) / 50;
-
-        const orbs = document.querySelectorAll('.w5-orb');
-        orbs.forEach((orb, index) => {
-            const speed = index + 1;
-            const x = (window.innerWidth - e.pageX * speed) / 100;
-            const y = (window.innerHeight - e.pageY * speed) / 100;
-            orb.style.transform = `translateX(${x}px) translateY(${y}px)`;
-        });
-    });
-
-    // --- W5 About Effects ---
-
-    // 1. 3D Tilt Cards
-    // Check if device supports hover/fine pointer
-    const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-
-    const cards = document.querySelectorAll('.tilt-card');
-    cards.forEach(card => {
-        // Skip mouse interaction on touch devices to save performance and avoid conflicts
-        if (isTouchDevice) return;
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            // Calculate center
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            // Rotation values (-15 to 15 deg)
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
-
-            // Set transform
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-            // Move Glare properly - follow mouse
-            const glare = card.querySelector('.tilt-glare');
-            if (glare) {
-                // Adjust glare position
-                glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15) 0%, transparent 60%)`;
-                glare.style.opacity = '1';
+            // Outline follows with delay
+            if (cursorOutline) {
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
             }
         });
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-            const glare = card.querySelector('.tilt-glare');
-            if (glare) glare.style.opacity = '0';
+        // Add hover effect for links/buttons
+        document.querySelectorAll('a, button, .bento-card').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
-    });
 
-    // 2. Scramble Text Effect
-    class TextScramble {
-        constructor(el) {
-            this.el = el;
-            this.chars = '!<>-_\\/[]{}—=+*^?#________';
-            this.update = this.update.bind(this);
-        }
-        setText(newText) {
-            const oldText = this.el.innerText;
-            const length = Math.max(oldText.length, newText.length);
-            const promise = new Promise((resolve) => this.resolve = resolve);
-            this.queue = [];
-            for (let i = 0; i < length; i++) {
-                const from = oldText[i] || '';
-                const to = newText[i] || '';
-                const start = Math.floor(Math.random() * 40);
-                const end = start + Math.floor(Math.random() * 40);
-                this.queue.push({ from, to, start, end });
-            }
-            cancelAnimationFrame(this.frameRequest);
-            this.frame = 0;
-            this.update();
-            return promise;
-        }
-        update() {
-            let output = '';
-            let complete = 0;
-            for (let i = 0, n = this.queue.length; i < n; i++) {
-                let { from, to, start, end, char } = this.queue[i];
-                if (this.frame >= end) {
-                    complete++;
-                    output += to;
-                } else if (this.frame >= start) {
-                    if (!char || Math.random() < 0.28) {
-                        char = this.randomChar();
-                        this.queue[i].char = char;
-                    }
-                    output += `<span class="dud">${char}</span>`;
-                } else {
-                    output += from;
+        // 3D Scroll Logic for W5
+        window.addEventListener('scroll', () => {
+            // Only if w5 is visible
+            if (getComputedStyle(heroW5).display === 'none') return;
+
+            const scrollY = window.scrollY;
+            const maxScroll = window.innerHeight * 1.5; // Rotate fully over 1.5 viewport heights
+
+            // Rotation calculations
+            // Rotate X and Y based on scroll
+            const rotationX = (scrollY / maxScroll) * 360;
+            const rotationY = (scrollY / maxScroll) * 360;
+
+            // Also move it slightly parallax
+            const translateY = scrollY * 0.5;
+
+            // Apply transform
+            // maintain initial center position using translateZ if needed or just rotate
+            // The cube css has initial transforms on faces, parent has transform-style: preserve-3d
+            // We rotate the PARENT container #w5-cube
+
+            cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+
+            // Fade out if scrolling past the hero section
+            // Hero height is approx 200vh now (per css update).
+            // Let's fade out as we exit the hero.
+            const heroRect = heroW5.getBoundingClientRect();
+            // heroRect.bottom goes from 2*viewport (start) to 0 (end)
+            if (heroRect.bottom < window.innerHeight) {
+                const fadeOutProgress = 1 - (heroRect.bottom / window.innerHeight);
+                // 0 -> 1 as we leave
+                // Opacity: 1 -> 0
+
+                // Ideally we target the container .w5-3d-scene
+                const scene = document.querySelector('.w5-3d-scene');
+                if (scene) {
+                    scene.style.opacity = Math.max(0, 1 - fadeOutProgress * 2); // fade fast
                 }
-            }
-            this.el.innerHTML = output;
-            if (complete === this.queue.length) {
-                this.resolve();
             } else {
-                this.frameRequest = requestAnimationFrame(this.update);
-                this.frame++;
+                const scene = document.querySelector('.w5-3d-scene');
+                if (scene) scene.style.opacity = '1';
             }
-        }
-        randomChar() {
-            return this.chars[Math.floor(Math.random() * this.chars.length)];
-        }
-    }
+        });
 
-    // Initialize Scramble on Observe
-    const scrambleEls = document.querySelectorAll('.scramble-text');
-    scrambleEls.forEach(el => {
-        const fx = new TextScramble(el);
-        const finalText = el.getAttribute('data-text') || el.innerText;
+        // Mouse Move Parallax on Cube (when not scrolling) for extra "High End" feel
+        window.addEventListener('mousemove', (e) => {
+            if (getComputedStyle(heroW5).display === 'none') return;
 
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    fx.setText(finalText);
-                    observer.unobserve(entry.target);
+            const x = (window.innerWidth / 2 - e.clientX) / 50;
+            const y = (window.innerHeight / 2 - e.clientY) / 50;
+
+            const orbs = document.querySelectorAll('.w5-orb');
+            orbs.forEach((orb, index) => {
+                const speed = index + 1;
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+                orb.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+        });
+
+        // --- W5 About Effects ---
+
+        // 1. 3D Tilt Cards
+        // Check if device supports hover/fine pointer
+        const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+        const cards = document.querySelectorAll('.tilt-card');
+        cards.forEach(card => {
+            // Skip mouse interaction on touch devices to save performance and avoid conflicts
+            if (isTouchDevice) return;
+
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                // Calculate center
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // Rotation values (-15 to 15 deg)
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                // Set transform
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                // Move Glare properly - follow mouse
+                const glare = card.querySelector('.tilt-glare');
+                if (glare) {
+                    // Adjust glare position
+                    glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15) 0%, transparent 60%)`;
+                    glare.style.opacity = '1';
                 }
             });
-        }, { threshold: 0.5 });
 
-        observer.observe(el);
-    });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+                const glare = card.querySelector('.tilt-glare');
+                if (glare) glare.style.opacity = '0';
+            });
+        });
 
-    // 3. Particle System for Services
-    const canvas = document.getElementById('w5-particles');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const particleCount = 60;
-        let animationId;
-
-        let mouse = { x: null, y: null, radius: 150 };
-        let isTouching = false;
-        let touchIntensity = 0; // 0.0 to 1.0
-
-        function resizeCanvas() {
-            // Set internal resolution to match display size (CSS pixels)
-            const rect = canvas.getBoundingClientRect();
-
-            // If section is hidden (display: none), rect will be 0.
-            // Fallback to window size to ensure particles have somewhere to live initially.
-            if (rect.width === 0 || rect.height === 0) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            } else {
-                canvas.width = rect.width;
-                canvas.height = rect.height;
+        // 2. Scramble Text Effect
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
             }
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5; // low speed
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
             }
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                // Bounce
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="dud">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
             }
-            draw() {
-                ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
             }
         }
 
-        // Init Particles
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
+        // Initialize Scramble on Observe
+        const scrambleEls = document.querySelectorAll('.scramble-text');
+        scrambleEls.forEach(el => {
+            const fx = new TextScramble(el);
+            const finalText = el.getAttribute('data-text') || el.innerText;
 
-        // Mouse Interaction
-        window.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            if (e.clientX >= rect.left && e.clientX <= rect.right &&
-                e.clientY >= rect.top && e.clientY <= rect.bottom) {
-                // Calculate scaling factors in case canvas resolution differs from CSS size
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        fx.setText(finalText);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
 
-                mouse.x = (e.clientX - rect.left) * scaleX;
-                mouse.y = (e.clientY - rect.top) * scaleY;
-            } else {
-                mouse.x = null;
-                mouse.y = null;
-            }
+            observer.observe(el);
         });
 
-        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+        // 3. Particle System for Services
+        const canvas = document.getElementById('w5-particles');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const particleCount = 60;
+            let animationId;
 
-        // Touch Interaction
-        // Touch Events with Smooth Fade
-        window.addEventListener('touchstart', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const touch = e.touches[0];
-            if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            let mouse = { x: null, y: null, radius: 150 };
+            let isTouching = false;
+            let touchIntensity = 0; // 0.0 to 1.0
 
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
+            function resizeCanvas() {
+                // Set internal resolution to match display size (CSS pixels)
+                const rect = canvas.getBoundingClientRect();
 
-                mouse.x = (touch.clientX - rect.left) * scaleX;
-                mouse.y = (touch.clientY - rect.top) * scaleY;
-                isTouching = true;
+                // If section is hidden (display: none), rect will be 0.
+                // Fallback to window size to ensure particles have somewhere to live initially.
+                if (rect.width === 0 || rect.height === 0) {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                } else {
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+                }
             }
-        }, { passive: true });
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
 
-        window.addEventListener('touchmove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const touch = e.touches[0];
-            if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.5; // low speed
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
 
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
+                    // Bounce
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
 
-                mouse.x = (touch.clientX - rect.left) * scaleX;
-                mouse.y = (touch.clientY - rect.top) * scaleY;
-                isTouching = true;
-            } else {
+            // Init Particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            // Mouse Interaction
+            window.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    // Calculate scaling factors in case canvas resolution differs from CSS size
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+
+                    mouse.x = (e.clientX - rect.left) * scaleX;
+                    mouse.y = (e.clientY - rect.top) * scaleY;
+                } else {
+                    mouse.x = null;
+                    mouse.y = null;
+                }
+            });
+
+            window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+            // Touch Interaction
+            // Touch Events with Smooth Fade
+            window.addEventListener('touchstart', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                    touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+
+                    mouse.x = (touch.clientX - rect.left) * scaleX;
+                    mouse.y = (touch.clientY - rect.top) * scaleY;
+                    isTouching = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                    touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+
+                    mouse.x = (touch.clientX - rect.left) * scaleX;
+                    mouse.y = (touch.clientY - rect.top) * scaleY;
+                    isTouching = true;
+                } else {
+                    // Don't clear immediately, let loop handle fade out
+                    isTouching = false;
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchend', () => {
                 // Don't clear immediately, let loop handle fade out
                 isTouching = false;
-            }
-        }, { passive: true });
+            });
 
-        window.addEventListener('touchend', () => {
-            // Don't clear immediately, let loop handle fade out
-            isTouching = false;
-        });
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Loop particles
+                particles.forEach((p, index) => {
+                    p.update();
+                    p.draw();
 
-            // Loop particles
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
+                    // Connect to mouse (with smooth fade on touch)
+                    if (mouse.x != null) {
+                        const dx = p.x - mouse.x;
+                        const dy = p.y - mouse.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
 
-                // Connect to mouse (with smooth fade on touch)
-                if (mouse.x != null) {
-                    const dx = p.x - mouse.x;
-                    const dy = p.y - mouse.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 300) {
+                            // Smoothly interpolate touch intensity
+                            if (isTouching) {
+                                touchIntensity += 0.05;
+                                if (touchIntensity > 1) touchIntensity = 1;
+                            } else {
+                                touchIntensity -= 0.02; // Fade out slower
+                                if (touchIntensity < 0) {
+                                    touchIntensity = 0;
+                                    // Only reset position once fully faded to avoid jumps
+                                    // But keeping position allows re-fading at same spot if touched quickly
+                                    // For now, we just stop drawing.
+                                }
+                            }
 
-                    if (distance < 300) {
-                        // Smoothly interpolate touch intensity
-                        if (isTouching) {
-                            touchIntensity += 0.05;
-                            if (touchIntensity > 1) touchIntensity = 1;
-                        } else {
-                            touchIntensity -= 0.02; // Fade out slower
-                            if (touchIntensity < 0) {
-                                touchIntensity = 0;
-                                // Only reset position once fully faded to avoid jumps
-                                // But keeping position allows re-fading at same spot if touched quickly
-                                // For now, we just stop drawing.
+                            if (touchIntensity > 0) {
+                                const opacity = (1 - distance / 300) * touchIntensity;
+                                ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+                                ctx.lineWidth = 2 * touchIntensity;
+                                ctx.beginPath();
+                                ctx.moveTo(p.x, p.y);
+                                ctx.lineTo(mouse.x, mouse.y);
+                                ctx.stroke();
+                            }
+
+                            // Push slightly away from mouse
+                            if (distance < 150) {
+                                p.vx -= dx / distance * 0.1;
+                                p.vy -= dy / distance * 0.1;
                             }
                         }
+                    }
 
-                        if (touchIntensity > 0) {
-                            const opacity = (1 - distance / 300) * touchIntensity;
-                            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
-                            ctx.lineWidth = 2 * touchIntensity;
+                    // Connect to other particles
+                    for (let j = index; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 120) {
+                            const opacity = 1 - distance / 120;
+                            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity * 0.5})`; // Visible connections
+                            ctx.lineWidth = 0.8;
                             ctx.beginPath();
                             ctx.moveTo(p.x, p.y);
-                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.lineTo(p2.x, p2.y);
                             ctx.stroke();
                         }
-
-                        // Push slightly away from mouse
-                        if (distance < 150) {
-                            p.vx -= dx / distance * 0.1;
-                            p.vy -= dy / distance * 0.1;
-                        }
                     }
-                }
+                });
 
-                // Connect to other particles
-                for (let j = index; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dx = p.x - p2.x;
-                    const dy = p.y - p2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 120) {
-                        const opacity = 1 - distance / 120;
-                        ctx.strokeStyle = `rgba(139, 92, 246, ${opacity * 0.5})`; // Visible connections
-                        ctx.lineWidth = 0.8;
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-            });
+                animationId = requestAnimationFrame(animateParticles);
+            }
 
-            animationId = requestAnimationFrame(animateParticles);
+            animateParticles();
         }
 
-        animateParticles();
-    }
+        // --- Mobile Menu Logic ---
+        const burgerBtns = document.querySelectorAll('.burger-btn');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-    // --- Mobile Menu Logic ---
-    const burgerBtns = document.querySelectorAll('.burger-btn');
-    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
+        if (burgerBtns.length > 0 && mobileMenuOverlay) {
+            burgerBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent immediate close
+                    const isActive = mobileMenuOverlay.classList.contains('active');
 
-    if (burgerBtns.length > 0 && mobileMenuOverlay) {
-        burgerBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent immediate close
-                const isActive = mobileMenuOverlay.classList.contains('active');
+                    if (isActive) {
+                        mobileMenuOverlay.classList.remove('active');
+                        btn.classList.remove('active');
+                        document.body.style.overflow = '';
+                    } else {
+                        mobileMenuOverlay.classList.add('active');
+                        btn.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
 
-                if (isActive) {
+            // Close when clicking a link
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
                     mobileMenuOverlay.classList.remove('active');
-                    btn.classList.remove('active');
+                    burgerBtns.forEach(btn => btn.classList.remove('active'));
                     document.body.style.overflow = '';
-                } else {
-                    mobileMenuOverlay.classList.add('active');
-                    btn.classList.add('active');
-                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Close when clicking outside (optional, but good for overlays)
+            mobileMenuOverlay.addEventListener('click', (e) => {
+                if (e.target === mobileMenuOverlay) {
+                    mobileMenuOverlay.classList.remove('active');
+                    burgerBtns.forEach(btn => btn.classList.remove('active'));
+                    document.body.style.overflow = '';
                 }
             });
-        });
-
-        // Close when clicking a link
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuOverlay.classList.remove('active');
-                burgerBtns.forEach(btn => btn.classList.remove('active'));
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Close when clicking outside (optional, but good for overlays)
-        mobileMenuOverlay.addEventListener('click', (e) => {
-            if (e.target === mobileMenuOverlay) {
-                mobileMenuOverlay.classList.remove('active');
-                burgerBtns.forEach(btn => btn.classList.remove('active'));
-                document.body.style.overflow = '';
-            }
-        });
+        }
     }
 });

@@ -50,6 +50,8 @@ body {
     font-family: var(--font-stack);
     background-image: radial-gradient(#E8E0D5 1px, transparent 1px);
     background-size: 40px 40px;
+    margin: 0;
+    padding: 0;
     /* Subtle Dot Pattern */
 }
 
