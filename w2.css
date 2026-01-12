@@ -749,35 +749,54 @@ a {
 }
 
 /* Hero Background Toggles */
-.hero.hero-bg-art {
-    /* Correctly swapped: This is now the OLD default image */
+/* Hero Background Toggles - Using ::before for Gradient Fade */
+.hero.hero-bg-art::before {
     background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-w1.png');
     background-size: cover;
     background-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
+    mask-image: linear-gradient(to right, transparent 0%, black 60%);
 }
 
-.hero.hero-bg-photo {
+.hero.hero-bg-photo::before {
     background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
     background-size: cover;
     background-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
+    mask-image: linear-gradient(to right, transparent 0%, black 60%);
 }
 
-.hero.hero-bg-cafe {
+.hero.hero-bg-cafe::before {
     background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-bg-cafe.png');
     background-size: cover;
     background-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
+    mask-image: linear-gradient(to right, transparent 0%, black 60%);
 }
 
-.hero.hero-bg-craft {
+.hero.hero-bg-craft::before {
     background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-bg-craft.png');
     background-size: cover;
     background-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
+    mask-image: linear-gradient(to right, transparent 0%, black 60%);
 }
 
-.hero.hero-bg-salon {
+.hero.hero-bg-salon::before {
     background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), url('hero-bg-salon.png');
     background-size: cover;
     background-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);
+    mask-image: linear-gradient(to right, transparent 0%, black 60%);
+}
+
+/* Clear direct background on parent if any */
+.hero.hero-bg-art,
+.hero.hero-bg-photo,
+.hero.hero-bg-cafe,
+.hero.hero-bg-craft,
+.hero.hero-bg-salon {
+    background: none !important;
 }
 
 /* Force Hide W1/W5 */
