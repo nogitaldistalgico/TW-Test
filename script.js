@@ -734,5 +734,27 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => setTimeout(updateMobileControlsVisibility, 100));
         });
 
+        // --- W2 Hero Button Logic (Phase 14) ---
+        const w2HeroBgBtn = document.getElementById('w2-hero-bg-trigger');
+        const w2HeroThemeBtn = document.getElementById('w2-hero-theme-trigger');
+
+        if (w2HeroBgBtn) {
+            w2HeroBgBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Trigger the background switch logic
+                const bgToggle = document.getElementById('w2-background-toggle');
+                if (bgToggle) bgToggle.click();
+            });
+        }
+
+        if (w2HeroThemeBtn) {
+            w2HeroThemeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Switch to W3 (Dark Mode)
+                const darkModeBtn = document.getElementById('w2-dark-mode');
+                if (darkModeBtn) darkModeBtn.click();
+            });
+        }
+
     }
 });

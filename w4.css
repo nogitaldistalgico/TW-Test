@@ -387,6 +387,12 @@ a {
 
 /* Mobile Stats Fix */
 @media (max-width: 768px) {
+    .about-text {
+        max-width: 100% !important;
+        /* Fix "too narrow" issue */
+        padding: 0 !important;
+    }
+
     .about-stat {
         width: 100%;
         box-sizing: border-box;
