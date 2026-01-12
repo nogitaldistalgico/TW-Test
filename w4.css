@@ -806,17 +806,20 @@ body {
         gap: 0.75rem;
     }
 
-    /* Force 1-col on mobile BUT only where necessary */
-    /* Removed bento-grid and contact-dashboard force */
+    /* W4 Mobile Grid Relaxation */
+    /* Handled by auto-fit/auto-fill in main grid logic, removed forced 1fr */
+    /* .bento-grid, .contact-dashboard NO LONGER FORCED to 1-col */
 
-    /* Keep width fix for Berlin Based */
+    /* Keep width fix ONLY for specific stats if needed, but relaxing general layout */
     .about-stat {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
     }
 
-    /* Reduce padding to feel less cramped */
+    /* Reduce padding for more space */
     .bento-card,
-    .action-card {
-        padding: 1.5rem !important;
+    .action-card,
+    .about-text {
+        padding: 1.25rem !important;
+        /* Reduced from default */
     }
 }

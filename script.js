@@ -707,8 +707,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const isW2 = document.body.classList.contains('theme-w2');
             const isW3 = document.body.classList.contains('theme-w3');
 
-            if (mobileBgToggle) mobileBgToggle.style.display = isW2 ? 'block' : 'none';
-            if (mobileModeToggle) mobileModeToggle.style.display = (isW2 || isW3) ? 'block' : 'none';
+            // Force visibility if match
+            if (mobileBgToggle) {
+                mobileBgToggle.style.display = isW2 ? 'block' : 'none';
+                if (isW2) mobileBgToggle.style.setProperty('display', 'block', 'important');
+            }
+            if (mobileModeToggle) {
+                mobileModeToggle.style.display = (isW2 || isW3) ? 'block' : 'none';
+                if (isW2 || isW3) mobileModeToggle.style.setProperty('display', 'block', 'important');
+            }
         }
 
         // Hook into existing theme switch observers or just interval check?
