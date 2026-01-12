@@ -78,6 +78,7 @@ body.hovering .cursor-outline {
 */
 
 .hero,
+.hero-w1,
 .hero-w4,
 .scroll-showcase {
     display: none !important;
@@ -641,4 +642,16 @@ body.hovering .cursor-outline {
     50% {
         opacity: 0.3;
     }
+}
+
+/* Footer Dropdown */
+.design-select {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--accent-color-w5);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-family: var(--font-heading-w5);
+    cursor: pointer;
+    text-transform: uppercase;
 }

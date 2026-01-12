@@ -1,26 +1,26 @@
 /* CSS Reset & Variables */
 :root {
-    /* W2: Dark Forest Theme */
-    --bg-color: #022C22;
-    /* Deep Forest Black/Green */
-    --surface-color: #064E3B;
-    /* Dark Green Surface */
+    /* Colors - Nature & Trust (Green) Palette */
+    --bg-color: #FFFCF0;
+    /* Very light warm Ivory/Beige */
+    --surface-color: #FFFFFF;
 
-    /* Typography - Light on Dark */
-    --text-heading: #F0FDF4;
-    /* Mint White */
-    --text-main: #D1FAE5;
-    /* Light Mint */
-    --text-muted: #6EE7B7;
-    /* Bright Green */
+    /* Typography - Deep Greens */
+    --text-heading: #022C22;
+    /* Almost black-green (Forest Night) */
+    --text-main: #14532D;
+    /* Deep Green for body text */
+    --text-muted: #15803D;
+    /* Softer green for secondary text */
 
-    --border-color: #065F46;
-    /* Semi-transparent Green */
+    --border-color: #E7E5E4;
+    /* Warm stone border */
 
-    /* Brand Accent */
-    --accent-color: #10B981;
-    /* Neon Emerald */
-    --accent-hover: #34D399;
+    /* Brand Accent - Modern Emerald */
+    --accent-color: #059669;
+    /* Professional Emerald */
+    --accent-hover: #047857;
+    /* Darker Emerald on hover */
 
     /* Typo */
     --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -84,11 +84,15 @@ h1 {
     font-size: clamp(3rem, 8vw, 6.5rem);
     letter-spacing: -0.04em;
     margin-bottom: var(--spacing-md);
-    background: linear-gradient(135deg, var(--text-heading) 0%, var(--accent-color) 100%);
+    /* High Contrast Spotlight: Bright Emerald to Dark Green */
+    background: radial-gradient(circle at 100% 50%, #6EE7B7 0%, var(--text-heading) 80%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
+    /* Ensure clip works */
+    display: inline-block;
+    width: 100%;
 }
 
 h2 {
@@ -141,10 +145,9 @@ a {
     top: 0;
     width: 100%;
     padding: var(--spacing-sm) 0;
-    background: rgba(2, 44, 34, 0.95);
-    /* Dark Green background for W2 */
+    background: rgba(250, 250, 250, 0.85);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     z-index: 1000;
 }
 
@@ -189,12 +192,34 @@ a {
     color: white;
 }
 
+
 /* Hero */
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     padding-top: var(--spacing-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hero Image - Abstract Architectural Fade */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    background-image: url('hero-w1.png');
+    background-size: cover;
+    background-position: center left;
+    z-index: -1;
+
+    /* Fade from transparent (left) to visible (right) */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 100%);
+    opacity: 0.9;
 }
 
 .hero-subtitle {
@@ -202,6 +227,7 @@ a {
     line-height: 1.4;
     margin-bottom: var(--spacing-lg);
     color: var(--text-muted);
+    max-width: 55ch;
 }
 
 .hero-actions {
@@ -223,21 +249,21 @@ a {
     border: none;
     transition: all 0.2s ease;
     gap: 0.75rem;
+    /* Space between text and icon */
 }
 
 .btn-primary {
     background: var(--text-main);
-    color: var(--bg-color);
-    /* Inverted text color for dark mode button */
+    color: white;
 }
 
 .btn-primary:hover {
     background: var(--accent-color);
-    color: white;
+    transform: translateY(-2px);
 }
 
 .btn-primary:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
 }
 
 .btn-secondary {
@@ -247,83 +273,24 @@ a {
 }
 
 .btn-secondary:hover {
-    border-color: var(--accent-color);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-main);
+    background: white;
 }
 
 .btn-secondary:active {
     transform: scale(0.98);
-    background: rgba(255, 255, 255, 0.1);
+    background: #f5f5f5;
 }
 
-/* ... previous code ... */
-
-/* W4 Hero - Hidden in W2 */
-.hero-w4 {
+/* W2 Scroll Showcase - Hidden in W1 */
+.scroll-showcase {
     display: none;
 }
 
-/* W2 Exclusive: Scroll Animation Showcase */
-.scroll-showcase {
-    height: 400vh;
-    /* Provides the scrolling 'track' */
-    background: var(--bg-color);
-    position: relative;
-    z-index: 10;
-}
-
-.sticky-wrapper {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.scroll-object-container {
-    width: 300px;
-    height: 300px;
-    position: relative;
-    z-index: 2;
-}
-
-.scroll-object {
-    width: 100%;
-    height: 100%;
-    /* Initial state */
-    transform: scale(0.5) rotate(0deg);
-    transition: transform 0.1s linear;
-    /* Smooth JS update */
-}
-
-.scroll-text {
-    position: absolute;
-    bottom: 20%;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-    z-index: 3;
-}
-
-.scroll-text h2 {
-    font-size: 4rem;
-    color: var(--accent-color);
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
-}
-
-.scroll-text p {
-    font-size: 1.5rem;
-    color: var(--text-main);
-}
-
-.scroll-showcase.active .scroll-text {
-    opacity: 1;
-    transform: translateY(0);
+/* W1 Hero - Hidden in W2 */
+.hero-w1,
+.hero-w5 {
+    display: none !important;
 }
 
 /* Features - Bento Grid */
@@ -338,6 +305,7 @@ a {
     .bento-grid {
         grid-template-columns: repeat(3, 1fr);
         grid-auto-rows: minmax(280px, auto);
+        /* Slightly taller for icons */
     }
 
     .card-large {
@@ -358,7 +326,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .bento-card:hover {
@@ -368,18 +336,21 @@ a {
 }
 
 .bento-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
     color: var(--accent-color);
 }
 
 .bento-card h3 {
     margin-bottom: 0.75rem;
-    color: var(--text-heading);
 }
 
 .card-icon {
+    /* Removed text-specific font-size */
     margin-top: 2rem;
     align-self: flex-end;
     color: var(--text-muted);
+    /* Default subtle color */
+    transition: all 0.3s ease;
 }
 
 /* About */
@@ -424,12 +395,12 @@ a {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
-    color: var(--text-muted);
     margin-bottom: 1rem;
 }
 
 .stat-icon-wrapper {
     color: var(--accent-color);
+    opacity: 0.8;
 }
 
 /* Contact Dashboard Layout */
@@ -450,11 +421,13 @@ a {
 .action-card {
     display: flex;
     flex-direction: column;
+    /* Text below icon */
     align-items: center;
     justify-content: center;
     gap: 1rem;
     background: var(--surface-color);
     padding: 3rem 2rem;
+    /* More padding for importance */
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
@@ -465,7 +438,8 @@ a {
 .action-card:hover {
     border-color: var(--accent-color);
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.05);
+    /* Lift up */
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
 }
 
 .action-icon {
@@ -473,8 +447,9 @@ a {
     align-items: center;
     justify-content: center;
     width: 64px;
+    /* Larger Icon */
     height: 64px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-color);
     border-radius: 50%;
     color: var(--text-heading);
     margin-bottom: 0.5rem;
@@ -482,8 +457,9 @@ a {
 }
 
 .action-card:hover .action-icon {
-    background: var(--accent-color);
+    background: var(--text-heading);
     color: white;
+    transform: scale(1.1);
 }
 
 .action-text {
@@ -521,8 +497,7 @@ a {
     border-radius: var(--radius-md);
     overflow: hidden;
     position: relative;
-    background: #111;
-    /* Dark background for map container */
+    background: #EAEAEA;
     border: 1px solid var(--border-color);
 }
 
@@ -543,16 +518,16 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--surface-color);
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmMmZjZmQiLz48ZyBmaWxsLW9wYWNpdHk9IjAuMDUiPjxjaXJjbGUgY3g9IjEwIiBjeT0iMTAiIHI9IjEiLz48L2c+PC9zdmc+') #f8f9fa;
     padding: 2rem;
     text-align: center;
 }
 
 .map-overlay-content {
-    background: #1a1a1a;
-    /* Darker card */
+    background: white;
     padding: 2.5rem;
     border-radius: var(--radius-sm);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     max-width: 380px;
     border: 1px solid var(--border-color);
 }
@@ -671,7 +646,37 @@ a {
     }
 }
 
-/* W5 Hero - Hidden in W2 */
+/* Design Switcher */
+.design-switcher-wrapper {
+    margin-top: 0.5rem;
+}
+
+.design-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-size: 0.65rem auto;
+    transition: all 0.2s ease;
+}
+
+.design-select:hover,
+.design-select:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    color: var(--text-main);
+}
+
+/* W5 Hero - Hidden in W1 */
 .hero-w5 {
     display: none;
 }
@@ -684,4 +689,64 @@ a {
 /* Hide W5 Features */
 .features-w5 {
     display: none;
+}
+
+/* Styled Design Switcher for W1 */
+.design-select {
+    font-family: var(--font-heading);
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    color: var(--text-main);
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Footer Dropdown */
+.design-select {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-heading);
+    font-family: var(--font-stack);
+    cursor: pointer;
+}
+
+/* Hero Background Toggles */
+.hero.hero-bg-art {
+    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero.hero-bg-photo {
+    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero.hero-bg-cafe {
+    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('hero-bg-cafe.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero.hero-bg-craft {
+    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('hero-bg-craft.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero.hero-bg-salon {
+    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)), url('hero-bg-salon.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Force Hide W1/W5 */
+.hero-w1,
+.hero-w5,
+.hero-w4 {
+    display: none !important;
 }

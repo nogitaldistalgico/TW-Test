@@ -23,12 +23,88 @@
                 <a href="#features" class="nav-link">Leistungen</a>
                 <a href="#about" class="nav-link">Über Mich</a>
                 <a href="contact.html" class="nav-link cta-button">Kontakt</a>
+
+                <!-- W2 Controls: Background & Dark Mode -->
+                <div id="w2-controls" class="theme-controls"
+                    style="display: none; align-items: center; gap: 0.5rem; margin-left: 1rem;">
+                    <button id="w2-bg-toggle" class="nav-link icon-btn" aria-label="Hintergrund ändern"
+                        title="Hintergrund wechseln" style="background:none; border:none; cursor:pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </button>
+                    <button id="w2-dark-mode" class="nav-link icon-btn" aria-label="Dark Mode" title="Zu Dark Mode (W3)"
+                        style="background:none; border:none; cursor:pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- W3 Controls: Light Mode -->
+                <div id="w3-controls" class="theme-controls"
+                    style="display: none; align-items: center; margin-left: 1rem;">
+                    <button id="w3-light-mode" class="nav-link icon-btn" aria-label="Light Mode"
+                        title="Zu Light Mode (W2)" style="background:none; border:none; cursor:pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
+
+
+        <!-- W1 Exclusive: Friendly Hero (Warm & Tactile) - Was W4 -->
+        <section class="hero-w1">
+            <div class="container hero-w1-inner">
+                <!-- Floating Stickers -->
+                <div class="hero-sticker sticker-1">🚀</div>
+                <div class="hero-sticker sticker-2">❤️</div>
+
+                <h1 class="hero-title-w1">
+                    Wir machen digitales <br>
+                    <span class="highlight-w1">Lieblings-Handwerk.</span>
+                </h1>
+
+                <p class="hero-subtitle-w1">
+                    Von hier. Für hier. Webdesign, das sich wie ein <br> gutes Gespräch beim Kaffee anfühlt.
+                </p>
+
+                <div class="hero-actions-w1">
+                    <a href="contact.html" class="btn btn-primary-w1">Projekt besprechen</a>
+                    <a href="#about" class="btn btn-secondary-w1">Team kennenlernen</a>
+                </div>
+
+                <div class="hero-trust-w1">
+                    <div class="avatars">
+                        <!-- CSS Avatars -->
+                        <div class="avatar av-1"></div>
+                        <div class="avatar av-2"></div>
+                        <div class="avatar av-3"></div>
+                    </div>
+                    <span class="trust-label">Vertraut von 50+ lokalen Helden</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Standard Hero (Used by W2, W3, W4) -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content reveal-text">
@@ -46,40 +122,6 @@
                             Mehr erfahren
                         </a>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- W4 Exclusive: Friendly Hero (Split Layout) -->
-        <!-- W4 Exclusive: Friendly Hero (Warm & Tactile) -->
-        <section class="hero-w4">
-            <div class="container hero-w4-inner">
-                <!-- Floating Stickers -->
-                <div class="hero-sticker sticker-1">🚀</div>
-                <div class="hero-sticker sticker-2">❤️</div>
-
-                <h1 class="hero-title-w4">
-                    Wir machen digitales <br>
-                    <span class="highlight-w4">Lieblings-Handwerk.</span>
-                </h1>
-
-                <p class="hero-subtitle-w4">
-                    Von hier. Für hier. Webdesign, das sich wie ein <br> gutes Gespräch beim Kaffee anfühlt.
-                </p>
-
-                <div class="hero-actions-w4">
-                    <a href="contact.html" class="btn btn-primary-w4">Projekt besprechen</a>
-                    <a href="#about" class="btn btn-secondary-w4">Team kennenlernen</a>
-                </div>
-
-                <div class="hero-trust-w4">
-                    <div class="avatars">
-                        <!-- CSS Avatars -->
-                        <div class="avatar av-1"></div>
-                        <div class="avatar av-2"></div>
-                        <div class="avatar av-3"></div>
-                    </div>
-                    <span class="trust-label">Vertraut von 50+ lokalen Helden</span>
                 </div>
             </div>
         </section>
@@ -355,11 +397,11 @@
                     <span class="copyright">© 2024 TW. Alle Rechte vorbehalten.</span>
                     <div class="design-switcher-wrapper">
                         <select id="design-select" class="design-select" aria-label="Design wählen">
-                            <option value="w1.css">Design W1 (Light Heritage)</option>
-                            <option value="w2.css">Design W2 (Dark Forest)</option>
-                            <option value="w3.css">Design W3 (Minimalist)</option>
-                            <option value="w4.css">Design W4 (Brutalist)</option>
-                            <option value="w5.css">Design W5 (High-End Motion)</option>
+                            <option value="w1.css">W1 - Modern Friendly</option>
+                            <option value="w2.css">W2 - Minimalist Light</option>
+                            <!-- W3 accessed via W2 Dark Mode -->
+                            <option value="w4.css">W4 - Classic</option>
+                            <option value="w5.css">W5 - High-Tech Motion</option>
                         </select>
                     </div>
                 </div>

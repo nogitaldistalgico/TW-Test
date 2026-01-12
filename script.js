@@ -72,17 +72,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (designSelect && themeStylesheet) {
         // Load saved theme
-        const savedTheme = localStorage.getItem('tw-theme');
+        const savedTheme = localStorage.getItem('tw-theme') || 'w1.css';
         if (savedTheme) {
             themeStylesheet.setAttribute('href', savedTheme);
             designSelect.value = savedTheme;
         }
+
+        // Helper to update control visibility
+        const updateControls = (theme) => {
+            const w2Controls = document.getElementById('w2-controls');
+            const w3Controls = document.getElementById('w3-controls');
+
+            if (w2Controls) w2Controls.style.display = (theme === 'w2.css') ? 'flex' : 'none';
+            if (w3Controls) w3Controls.style.display = (theme === 'w3.css') ? 'flex' : 'none';
+
+            // W2 Background Logic: Reset or restore?
+            // For now, keep it simple.
+        };
+
+        // Initial update
+        updateControls(savedTheme);
 
         // Listen for changes
         designSelect.addEventListener('change', (e) => {
             const newTheme = e.target.value;
             themeStylesheet.setAttribute('href', newTheme);
             localStorage.setItem('tw-theme', newTheme);
+
+            updateControls(newTheme);
 
             // Auto-scroll to top
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -92,6 +109,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.dispatchEvent(new Event('resize'));
             }, 100);
         });
+
+        // W2/W3 Header Controls Logic
+        const w2BgToggle = document.getElementById('w2-bg-toggle');
+        const w2DarkMode = document.getElementById('w2-dark-mode');
+        const w3LightMode = document.getElementById('w3-light-mode');
+
+        // W2 Background Toggle
+        if (w2BgToggle) {
+            const bgClasses = ['', 'hero-bg-art', 'hero-bg-photo', 'hero-bg-cafe', 'hero-bg-craft', 'hero-bg-salon'];
+            let currentBgIndex = 0;
+            w2BgToggle.addEventListener('click', () => {
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    // Remove existing
+                    hero.classList.remove('hero-bg-art', 'hero-bg-photo', 'hero-bg-cafe', 'hero-bg-craft', 'hero-bg-salon');
+
+                    // Cycle
+                    currentBgIndex = (currentBgIndex + 1) % bgClasses.length;
+                    const newClass = bgClasses[currentBgIndex];
+
+                    if (newClass) hero.classList.add(newClass);
+                }
+            });
+        }
+
+        // W2 -> W3 (Fake Dark Mode)
+        if (w2DarkMode) {
+            w2DarkMode.addEventListener('click', () => {
+                themeStylesheet.setAttribute('href', 'w3.css');
+                designSelect.value = 'w3.css'; // This option technically doesn't exist in dropdown now, but value setting still works? No, if option missing, value won't stick in UI.
+                // We should select 'w2.css' visually or just nothing?
+                // Actually, if we remove W3 from dropdown, we can't select it there.
+                // But the stylesheet switches.
+                localStorage.setItem('tw-theme', 'w3.css');
+                updateControls('w3.css');
+            });
+        }
+
+        // W3 -> W2 (Fake Light Mode)
+        if (w3LightMode) {
+            w3LightMode.addEventListener('click', () => {
+                themeStylesheet.setAttribute('href', 'w2.css');
+                designSelect.value = 'w2.css';
+                localStorage.setItem('tw-theme', 'w2.css');
+                updateControls('w2.css');
+            });
+        }
     }
 
     console.log("TW Website Components Initialized");
