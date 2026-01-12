@@ -742,7 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
             w2HeroBgBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 // Trigger the background switch logic
-                const bgToggle = document.getElementById('w2-background-toggle');
+                const bgToggle = document.getElementById('w2-bg-toggle');
                 if (bgToggle) bgToggle.click();
             });
         }
