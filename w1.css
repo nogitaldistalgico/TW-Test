@@ -1051,16 +1051,22 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Animations using IntersectionObserver - Mobile Only */
-.reveal,
-.reveal-text,
-.revealable-delay-1,
-.revealable-delay-2 {
-    opacity: 1;
-    /* Default visible on desktop */
-    transform: none;
+/* Animations using IntersectionObserver */
+
+/* Desktop: Explicitly Static */
+@media (min-width: 769px) {
+
+    .reveal,
+    .reveal-text,
+    .revealable-delay-1,
+    .revealable-delay-2 {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }
 
+/* Mobile: Animate */
 @media (max-width: 768px) {
 
     .reveal,
@@ -1070,6 +1076,7 @@ body {
         opacity: 0;
         transform: translateY(30px);
         transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
     }
 
     .visible {

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Intersection Observer for Reveal Animations
     const observerOptions = {
-        threshold: 0.1, // Trigger when 10% of the element is visible
+        threshold: 0.05, // Trigger when 5% is visible (better for mobile)
         rootMargin: "0px"
     };
 
