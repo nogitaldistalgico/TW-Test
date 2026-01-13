@@ -204,6 +204,10 @@ a {
     padding-top: var(--spacing-xl);
 }
 
+.hero-title-w4 {
+    display: none !important;
+}
+
 .hero-subtitle {
     font-size: clamp(1.125rem, 2vw, 1.5rem);
     line-height: 1.4;
