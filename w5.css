@@ -962,6 +962,7 @@ body.theme-w5 .mobile-nav .mobile-link:hover {
     letter-spacing: -0.02em;
     background: linear-gradient(to right, #fff, #bca1ff);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
@@ -1215,5 +1216,4 @@ body.theme-w5 {
     .revealable-delay-2 {
         transition-delay: 0.2s;
     }
-}
 }
