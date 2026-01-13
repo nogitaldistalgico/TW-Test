@@ -855,18 +855,9 @@ body {
     }
 
     /* "Breathing" Cards - High End Feel */
-    /* Instead of static, they gently float and rotate slightly */
+    /* Instead of static, they gently float and rotate slightly via .visible class below */
     .bento-card {
-        animation: w4-breathe 8s ease-in-out infinite both;
         transform-origin: center center;
-    }
-
-    .bento-card:nth-child(odd) {
-        animation-delay: 0s;
-    }
-
-    .bento-card:nth-child(even) {
-        animation-delay: 4s;
     }
 
     /* Make sure Stickers animate nicely (they already have animation, but let's ensure z-index) */
@@ -1074,8 +1065,9 @@ body {
     .revealable-delay-1,
     .revealable-delay-2 {
         opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(80px);
+        /* Increased from 30px for "slide in from bottom" effect */
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         will-change: opacity, transform;
     }
 
@@ -1084,13 +1076,20 @@ body {
         transform: translateY(0);
     }
 
+    /* Bento Cards: Only breathe after visible reveal slide is done */
+    .bento-card.visible {
+        animation: w4-breathe 8s ease-in-out infinite both;
+        animation-delay: 1s;
+        /* Wait for reveal slide to finish approx */
+    }
+
     /* Delays */
     .revealable-delay-1 {
-        transition-delay: 0.1s;
+        transition-delay: 0.15s;
     }
 
     .revealable-delay-2 {
-        transition-delay: 0.2s;
+        transition-delay: 0.3s;
     }
 }
 

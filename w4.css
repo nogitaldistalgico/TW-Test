@@ -610,14 +610,29 @@ body {
     .revealable-delay-1,
     .revealable-delay-2 {
         opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(80px);
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         will-change: opacity, transform;
     }
 
     .visible {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    /* Bento Cards: Only float after visible reveal slide is done */
+    .bento-card.visible {
+        animation: w4-float 6s ease-in-out infinite both;
+        animation-delay: 1s;
+    }
+
+    /* Delays */
+    .revealable-delay-1 {
+        transition-delay: 0.15s;
+    }
+
+    .revealable-delay-2 {
+        transition-delay: 0.3s;
     }
 }
 
@@ -676,17 +691,10 @@ body {
         transform: scale(0.96) translateY(2px);
     }
 
-    /* Auto-Float for Cards to feel "alive" without hover */
+    /* Auto-Float for Cards - move to .visible classes above */
     .bento-card {
-        animation: w3-float 6s ease-in-out infinite both;
-    }
-
-    .bento-card:nth-child(odd) {
-        animation-delay: 0s;
-    }
-
-    .bento-card:nth-child(even) {
-        animation-delay: 3s;
+        background: #fff;
+        /* ensure background */
     }
 }
 
